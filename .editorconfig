@@ -1,0 +1,19 @@
+root = true
+
+[*]
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 512
+trim_trailing_whitespace = true
+
+[*.lua]
+align_function_params = false
+call_arg_parentheses = remove
+continuation_indent = 4
+never_indent_before_if_condition = true
+quote_style = double
+space_after_comment_dash = true
+space_before_inline_comment = keep
+trailing_table_separator = smart
