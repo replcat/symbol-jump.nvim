@@ -1,4 +1,7 @@
 .*
 
+!.busted
 !.editorconfig
 !.gitignore
+
+log

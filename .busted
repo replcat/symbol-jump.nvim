@@ -1,0 +1,21 @@
+local ROCKS_TREE = ".luarocks"
+
+local cpath = table.concat({
+  ROCKS_TREE .. "/lib/lua/5.1/?.so",
+}, ";")
+
+local lpath = table.concat({
+  "lua/?.lua",
+  "lua/?/init.lua",
+  ROCKS_TREE .. "/share/lua/5.1/?.lua",
+  ROCKS_TREE .. "/share/lua/5.1/?/init.lua",
+}, ";")
+
+return {
+  _all = {
+    cpath = cpath,
+    lpath = lpath,
+    lua = ROCKS_TREE .. "/bin/nlua",
+    helper = "tests/_setup.lua",
+  },
+}
