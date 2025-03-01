@@ -5,4 +5,4 @@
 !.github
 !.gitignore
 
-log
+/tests/*log

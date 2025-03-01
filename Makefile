@@ -11,8 +11,9 @@ default: # no-op
 	@exit 0
 
 deps:
-	@$(LUAROCKS) install busted 2.2.0
-	@$(LUAROCKS) install nlua   0.2.0
+	@$(LUAROCKS) install busted   2.2.0
+	@$(LUAROCKS) install nlua     0.2.0
+	@$(LUAROCKS) install nvim-nio 1.10.1
 
 test:
 	@XDG_STATE_HOME=. NVIM_APPNAME="tests" $(BUSTED) tests --pattern=".*$(ARGS).*"

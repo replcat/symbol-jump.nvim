@@ -16,6 +16,5 @@ return {
     cpath = cpath,
     lpath = lpath,
     lua = ROCKS_TREE .. "/bin/nlua",
-    helper = "tests/_setup.lua",
   },
 }
