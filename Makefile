@@ -6,19 +6,15 @@ BUSTED := $(ROCKS_TREE)/bin/busted
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
-.PHONY: default test watch clean
+.PHONY: default deps test watch
 default: # no-op
-	@echo "usage: make <test|watch> [pattern...]"
 	@exit 0
 
-$(ROCKS_TREE):
+deps:
 	@$(LUAROCKS) install busted 2.2.0
 	@$(LUAROCKS) install nlua   0.2.0
 
-clean:
-	@rm -rf $(ROCKS_TREE)
-
-test: | $(ROCKS_TREE)
+test:
 	@XDG_STATE_HOME=. NVIM_APPNAME="tests" $(BUSTED) tests --pattern=".*$(ARGS).*"
 
 watch:

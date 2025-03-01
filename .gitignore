@@ -2,6 +2,7 @@
 
 !.busted
 !.editorconfig
+!.github
 !.gitignore
 
 log

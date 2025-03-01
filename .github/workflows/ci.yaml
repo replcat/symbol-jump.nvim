@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push: ~
+  pull_request: ~
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        neovim: [v0.9.5, v0.10.0, nightly]
+        include:
+          - neovim: v0.9.5
+          - neovim: v0.10.0
+          - neovim: nightly
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.neovim }}
+
+      - uses: leafo/gh-actions-lua@v9
+        with:
+          luaVersion: 5.1
+
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - run: make deps
+      - run: make test
