@@ -6,8 +6,6 @@ local after_each = nio.tests.after_each
 
 local fennel_fixture = "./tests/fixtures/fixture.fnl"
 
-vim.o.modeline = true
-
 before_each(function()
   assert.equal("", vim.fn.expand "%")
   assert.equal(1, #vim.api.nvim_list_bufs())
@@ -18,6 +16,12 @@ after_each(function()
 end)
 
 describe("the test environment", function()
+  it("loads the treesitter parser", function()
+    assert.no_error(function()
+      vim.treesitter.language.inspect "fennel"
+    end)
+  end)
+
   it("loads the test fixture", function()
     vim.cmd.edit(fennel_fixture)
     assert.equal(fennel_fixture, vim.fn.expand "%")
@@ -26,5 +30,12 @@ describe("the test environment", function()
   it("identifies the test fixture's filetype", function()
     vim.cmd.edit(fennel_fixture)
     assert.equal("fennel", vim.bo.filetype)
+  end)
+
+  it("parses the test fixture", function()
+    vim.cmd.edit(fennel_fixture)
+    assert.no_error(function()
+      vim.treesitter.get_parser()
+    end)
   end)
 end)
