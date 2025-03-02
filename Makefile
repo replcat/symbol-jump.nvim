@@ -11,9 +11,11 @@ default: # no-op
 	@exit 0
 
 deps:
-	@$(LUAROCKS) install busted   2.2.0
-	@$(LUAROCKS) install nlua     0.2.0
-	@$(LUAROCKS) install nvim-nio 1.10.1
+	@$(LUAROCKS) install busted             2.2.0
+	@$(LUAROCKS) install nlua               0.2.0
+	@$(LUAROCKS) install nvim-nio           1.10.1
+	@$(LUAROCKS) install fennel-ls          0.1.3
+	@$(LUAROCKS) install tree-sitter-fennel 0.0.29
 
 test:
 	@XDG_STATE_HOME=. NVIM_APPNAME="tests" $(BUSTED) tests --pattern=".*$(ARGS).*"
