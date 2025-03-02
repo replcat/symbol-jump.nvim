@@ -31,5 +31,7 @@ jobs:
 
       - uses: leafo/gh-actions-luarocks@v4
 
+      - uses: tree-sitter/setup-action@v2
+
       - run: make deps
       - run: make test

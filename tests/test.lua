@@ -1,24 +1,30 @@
-local expect = require "luassert"
+local assert = require "luassert"
 local nio = require "nio"
 local it = nio.tests.it
+local before_each = nio.tests.before_each
+local after_each = nio.tests.after_each
 
-it("works", function()
-  expect.equal(type(vim), "table")
+local fennel_fixture = "./tests/fixtures/fixture.fnl"
+
+vim.o.modeline = true
+
+before_each(function()
+  assert.equal("", vim.fn.expand "%")
+  assert.equal(1, #vim.api.nvim_list_bufs())
 end)
 
-it("works (async)", function()
-  local event = nio.control.event()
+after_each(function()
+  vim.cmd "%bwipeout"
+end)
 
-  local notified = 0
-  for _ = 1, 10 do
-    nio.run(function()
-      event.wait()
-      notified = notified + 1
-    end)
-  end
+describe("the test environment", function()
+  it("loads the test fixture", function()
+    vim.cmd.edit(fennel_fixture)
+    assert.equal(fennel_fixture, vim.fn.expand "%")
+  end)
 
-  event.set()
-  nio.sleep(100)
-
-  expect.equal(10, notified)
+  it("identifies the test fixture's filetype", function()
+    vim.cmd.edit(fennel_fixture)
+    assert.equal("fennel", vim.bo.filetype)
+  end)
 end)
